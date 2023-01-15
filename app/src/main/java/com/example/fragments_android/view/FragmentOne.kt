@@ -1,12 +1,15 @@
-package com.example.fragments_android
+package com.example.fragments_android.view
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.fragments_android.R
+import com.example.fragments_android.model.BarInfo
 
 class FragmentOne : Fragment() {
     override fun onCreateView(
@@ -28,13 +31,11 @@ class FragmentOne : Fragment() {
         super.onAttach(context)
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d("vaibhav", "F onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        val data = arguments?.getParcelable<BarInfo>("data")
+        Log.d("vaibhav data", ""+data?.list?.size.toString())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -55,6 +56,11 @@ class FragmentOne : Fragment() {
     override fun onPause() {
         Log.d("vaibhav", "F onPause")
         super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("vaibhav", "F onStop")
+        super.onStop()
     }
 
     override fun onDestroy() {

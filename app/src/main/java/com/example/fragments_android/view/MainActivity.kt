@@ -1,8 +1,10 @@
-package com.example.fragments_android
+package com.example.fragments_android.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.fragments_android.R
+import com.example.fragments_android.model.BarInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,10 +21,15 @@ class MainActivity : AppCompatActivity() {
         }
         btnAdd.setOnClickListener {
             fragmentOne = FragmentOne()
-            supportFragmentManager.beginTransaction().add(R.id.root_frame, fragmentOne!!).commit()
+            val bundle = Bundle()
+            val barInfo = BarInfo(arrayListOf("non","fof"))
+            bundle.putParcelable("data", barInfo)
+            fragmentOne?.arguments = bundle
+            supportFragmentManager.beginTransaction().replace(R.id.root_frame, fragmentOne!!, "hey").addToBackStack("lol").commit()
         }
         btnRemove.setOnClickListener {
-            if (fragmentOne != null)
+            if (supportFragmentManager.findFragmentById(R.id.root_frame) != null)
+                fragmentOne = supportFragmentManager.findFragmentById(R.id.root_frame) as FragmentOne?
                 supportFragmentManager.beginTransaction().remove(fragmentOne!!).commit()
         }
     }
