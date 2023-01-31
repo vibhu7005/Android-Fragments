@@ -19,19 +19,38 @@ class MainActivity : AppCompatActivity() {
                 fragmentOne = fragment
             }
         }
-        btnAdd.setOnClickListener {
+        if (fragmentOne == null) {
             fragmentOne = FragmentOne()
             val bundle = Bundle()
-            val barInfo = BarInfo(arrayListOf("non","fof"))
+            val barInfo = BarInfo(arrayListOf("non", "fof"))
             bundle.putParcelable("data", barInfo)
             fragmentOne?.arguments = bundle
-            supportFragmentManager.beginTransaction().replace(R.id.root_frame, fragmentOne!!, "hey").addToBackStack("lol").commit()
         }
-        btnRemove.setOnClickListener {
-            if (supportFragmentManager.findFragmentById(R.id.root_frame) != null)
-                fragmentOne = supportFragmentManager.findFragmentById(R.id.root_frame) as FragmentOne?
-                supportFragmentManager.beginTransaction().remove(fragmentOne!!).commit()
+        addFragment()
+        if (tv_username != null) {
+            tv_username!!.text = "Jordiee"
         }
+//        btnAdd.setOnClickListener {
+//            fragmentOne = FragmentOne()
+//            val bundle = Bundle()
+//            val barInfo = BarInfo(arrayListOf("non", "fof"))
+//            bundle.putParcelable("data", barInfo)
+//            fragmentOne?.arguments = bundle
+//            addFragment()
+//        }
+//        btnRemove.setOnClickListener {
+//            if (supportFragmentManager.findFragmentById(R.id.fragment_container) != null) {
+//                fragmentOne =
+//                    supportFragmentManager.findFragmentById(R.id.fragment_container) as FragmentOne?
+//                supportFragmentManager.beginTransaction().remove(fragmentOne!!).commit()
+//            }
+//        }
+    }
+
+    fun addFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragmentOne!!, "hey")
+            .addToBackStack("lol").commit()
     }
 
     override fun onStart() {
